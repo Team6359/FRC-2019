@@ -55,6 +55,7 @@ public class MoveController extends Command {
 		
 
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY);
+		Robot.mathHandler.update();
 		
 	}
 

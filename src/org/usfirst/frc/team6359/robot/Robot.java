@@ -7,8 +7,11 @@
 
 package org.usfirst.frc.team6359.robot;
 
-import org.usfirst.frc.team6359.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Arm;
 import org.usfirst.frc.team6359.robot.subsystems.SS_DriveTrain;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Lift;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Sensors;
+import org.usfirst.frc.team6359.robot.subsystems.SS_Wrist;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +28,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	public static final SS_DriveTrain driveTrain = new SS_DriveTrain();
+	public static final SS_Sensors sensors = new SS_Sensors();
+	public static final SS_Lift lift = new SS_Lift();
+	public static final SS_Arm arm = new SS_Arm();
+	public static final SS_Wrist wrist = new SS_Wrist();
+	
+	public static MathHandler mathHandler = new MathHandler(lift, arm, wrist);
+	
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -37,7 +47,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}

@@ -27,13 +27,25 @@ public class RobotMap {
 	public static int FL = -1;
 	public static int BR = -1;
 	public static int FR = -1;
+
+	public static final int vacuum = 1;
+	public static final int dd = 2;
+	public static final int lift1 = 3;
+	public static final int lift2 = 4;
+	public static final int lift3 = 5;
+	public static final int intake = 0;
+	public static final int wrist = -1;
+	public static final int arm = -1;
 	
-	public static final int rEncoder1 = 8;
-	public static final int rEncoder2 = 7;
-	public static final int lEncoder1 = 6;
-	public static final int lEncoder2 = 5;
 	public static final int liftEncoder1 = 1;
 	public static final int liftEncoder2 = 0;
+	public static final int armEncoder1 = 1;
+	public static final int armEncoder2 = 0;
+	public static final int wristEncoder1 = 1;
+	public static final int wristEncoder2 = 0;
+	
+	public static final int solenoidIntake = -1;
+	
 	public static final int liftLimitHigh = 2;
 	public static final int liftLimitLow = 3;
 	

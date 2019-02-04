@@ -1,5 +1,11 @@
 package org.usfirst.frc.team6359.robot.subsystems;
 
+import org.usfirst.frc.team6359.robot.Robot;
+import org.usfirst.frc.team6359.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -9,6 +15,8 @@ public class SS_Wrist extends PIDSubsystem {
 
 	private static final float kP = 0f, kI = 0f, kD = 0f;
 	double tolerance = 10; // 1/4 in tolerance
+	
+	private VictorSPX wristMotor;
 
 	
     // Initialize your subsystem here
@@ -21,6 +29,8 @@ public class SS_Wrist extends PIDSubsystem {
     	
     	setSetpoint(0);
     	enable();
+    	
+    	wristMotor = new VictorSPX(RobotMap.wrist);
     }
 
     public void initDefaultCommand() {
@@ -28,15 +38,12 @@ public class SS_Wrist extends PIDSubsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 
+
     protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return 0.0;
+        return Robot.sensors.wristEncoder(false);
     }
 
     protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
+        wristMotor.set(ControlMode.PercentOutput, output);
     }
 }

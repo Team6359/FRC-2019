@@ -17,8 +17,8 @@ public class SS_Intake extends Subsystem {
 	private SpeedController belts;
 
     public SS_Intake() {
-    	solenoid1 = new Solenoid(RobotMap.solenoidIntake1);
-    	solenoid2 = new Solenoid(RobotMap.solenoidIntake2);
+    	//solenoid1 = new Solenoid(RobotMap.solenoidIntake1);
+    	//solenoid2 = new Solenoid(RobotMap.solenoidIntake2);
 
     	belts = new Victor(RobotMap.intake);
     }

@@ -60,6 +60,8 @@ public class MoveController extends Command {
 		
 		Robot.mathHandler.update();
 		
+		//Robot.lift.lift(0);
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

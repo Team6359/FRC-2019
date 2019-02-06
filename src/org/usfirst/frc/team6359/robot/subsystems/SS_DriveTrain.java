@@ -36,10 +36,10 @@ public class SS_DriveTrain extends Subsystem {
 	}
 
 	public void Drive(double leftSpeed, double rightSpeed) {
-		BL.set(ControlMode.PercentOutput, leftSpeed);
-		BR.set(ControlMode.PercentOutput, rightSpeed);
-		FL.set(ControlMode.PercentOutput, leftSpeed);
-		FR.set(ControlMode.PercentOutput, rightSpeed);
+	//	BL.set(ControlMode.PercentOutput, leftSpeed);
+	//	BR.set(ControlMode.PercentOutput, rightSpeed);
+	//	FL.set(ControlMode.PercentOutput, leftSpeed);
+	//	FR.set(ControlMode.PercentOutput, rightSpeed);
 
 		SmartDashboard.putNumber("Drive Left Speed", leftSpeed);
 		SmartDashboard.putNumber("Drive Right Speed", rightSpeed);

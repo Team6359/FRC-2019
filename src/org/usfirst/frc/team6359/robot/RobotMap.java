@@ -39,10 +39,10 @@ public class RobotMap {
 	
 	public static final int liftEncoder1 = 1;
 	public static final int liftEncoder2 = 0;
-	public static final int armEncoder1 = 1;
-	public static final int armEncoder2 = 0;
-	public static final int wristEncoder1 = 1;
-	public static final int wristEncoder2 = 0;
+	public static final int armEncoder1 = -1;
+	public static final int armEncoder2 = -1;
+	public static final int wristEncoder1 = -1;
+	public static final int wristEncoder2 = -1;
 	
 	public static final int solenoidIntake1 = -1;
 	public static final int solenoidIntake2 = -1;
@@ -51,8 +51,6 @@ public class RobotMap {
 	
 	
 	
-	public static final int liftLimitHigh = 2;
-	public static final int liftLimitLow = 3;
 	
 	//Intake Positions [liftHeight, thetaArm, thetaWrist] x is inches from lift, y is inches from ground
 	

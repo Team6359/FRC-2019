@@ -28,15 +28,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final SS_DriveTrain driveTrain = new SS_DriveTrain();
-	public static final SS_Sensors sensors = new SS_Sensors();
-	public static final SS_Lift lift = new SS_Lift();
-	public static final SS_Arm arm = new SS_Arm();
-	public static final SS_Wrist wrist = new SS_Wrist();
-	public static final SS_Intake intake = new SS_Intake();
+	public static SS_DriveTrain driveTrain;
+	public static SS_Sensors sensors;
+	public static SS_Lift lift;
+	public static SS_Arm arm;
+	public static SS_Wrist wrist;
+	public static SS_Intake intake;
 	
-	public static final RobotController robotController = new RobotController();
-	public static MathHandler mathHandler = new MathHandler(lift, arm, wrist);
+	public static RobotController robotController;
+	public static MathHandler mathHandler;
 	
 	public static OI m_oi;
 
@@ -50,6 +50,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
+		driveTrain = new SS_DriveTrain();
+		sensors = new SS_Sensors();
+		lift = new SS_Lift();
+		arm = new SS_Arm();
+		wrist = new SS_Wrist();
+		intake = new SS_Intake();
+		robotController = new RobotController();
+		mathHandler = new MathHandler(lift, arm, wrist);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}

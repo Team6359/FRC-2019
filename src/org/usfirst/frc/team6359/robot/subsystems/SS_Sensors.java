@@ -22,9 +22,9 @@ public class SS_Sensors extends Subsystem {
 
 	public SS_Sensors() {
 		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
-		encArm = new Encoder(RobotMap.armEncoder1, RobotMap.armEncoder2, false, Encoder.EncodingType.k4X);
-		limitSwitchHigh = new DigitalInput(2);
-		limitSwitchLow = new DigitalInput(3);
+	//	encArm = new Encoder(RobotMap.armEncoder1, RobotMap.armEncoder2, false, Encoder.EncodingType.k4X);
+	//	limitSwitchHigh = new DigitalInput(2);
+	//	limitSwitchLow = new DigitalInput(3);
 	}
 	public double liftEncoder(boolean reset) {
 		if (reset) {
@@ -38,7 +38,7 @@ public class SS_Sensors extends Subsystem {
 		if (reset) {
 			encWrist.reset();
 		}
-		SmartDashboard.putNumber("Wrist Encoder", encWrist.getRaw());
+		//SmartDashboard.putNumber("Wrist Encoder", encWrist.getRaw());
 		return degrees ? encWrist.getRaw() / RobotMap.cpd : encWrist.getRaw();
 	}
 	
@@ -46,7 +46,7 @@ public class SS_Sensors extends Subsystem {
 		if (reset) {
 			encArm.reset();
 		}
-		SmartDashboard.putNumber("Arm Encoder", encArm.getRaw());
+		//SmartDashboard.putNumber("Arm Encoder", encArm.getRaw());
 		return degrees ? encArm.getRaw() / RobotMap.cpd : encArm.getRaw();
 	}
 

@@ -44,20 +44,15 @@ public class RobotMap {
 	public static final int wristEncoder1 = 1;
 	public static final int wristEncoder2 = 0;
 	
-	public static final int solenoidIntake = -1;
+	public static final int solenoidIntake1 = -1;
+	public static final int solenoidIntake2 = -1;
+	public static final int solenoidBrake1 = -1;
+	public static final int solenoidBrake2 = -1;
+	
+	
 	
 	public static final int liftLimitHigh = 2;
 	public static final int liftLimitLow = 3;
-	
-	public static double cpiLift = (3811.0 / 2) / 3.141;
-	// Inches * cpiLift
-	public static double liftSetPointFloor = 0;
-	public static double liftSetPointDrive = 4 * cpiLift;
-	public static double liftSetPointSwitch = 34 * cpiLift;
-	//public static double liftSetPointScaleLow = 62 * cpiLift;
-	public static double liftSetPointScaleNeutral = 72 * cpiLift;
-	public static double liftSetPointScaleHigh = 49000;
-	
 	
 	//Intake Positions [liftHeight, thetaArm, thetaWrist] x is inches from lift, y is inches from ground
 	
@@ -70,5 +65,8 @@ public class RobotMap {
 	public static double[] setPointCargoRocketLow = {0, 0, 0};
 	public static double[] setPointCargoRocketMid = {0, 0, 0};
 	public static double[] setPointCargoRocketHigh = {0, 0, 0};
+	
+	//counts per degree
+	public static double cpd = -1;
 	
 }

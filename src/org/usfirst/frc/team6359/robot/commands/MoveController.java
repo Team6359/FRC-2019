@@ -25,10 +25,10 @@ public class MoveController extends Command {
 		
 		@SuppressWarnings("unused")
 		boolean up, down, a, b, x, y, lB, rB, back, start, lClick, rClick, l3, lB2, rB2;
+		@SuppressWarnings("unused")
 		double lX, lY, rX, rY, lT, rT;
 		int DPad;
 		
-		double lT2, rT2;
 
 		lX = OI.controller1.getRawAxis(0);
 		lY = OI.controller1.getRawAxis(1);

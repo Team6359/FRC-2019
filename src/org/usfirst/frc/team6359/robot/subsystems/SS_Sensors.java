@@ -34,20 +34,20 @@ public class SS_Sensors extends Subsystem {
 		return encLift.getRaw();
 	}
 	
-	public double wristEncoder(boolean reset) {
+	public double wristEncoder(boolean reset, boolean degrees) {
 		if (reset) {
 			encWrist.reset();
 		}
 		SmartDashboard.putNumber("Wrist Encoder", encWrist.getRaw());
-		return encWrist.getRaw();
+		return degrees ? encWrist.getRaw() / RobotMap.cpd : encWrist.getRaw();
 	}
 	
-	public double armEncoder(boolean reset) {
+	public double armEncoder(boolean reset, boolean degrees) {
 		if (reset) {
 			encArm.reset();
 		}
 		SmartDashboard.putNumber("Arm Encoder", encArm.getRaw());
-		return encArm.getRaw();
+		return degrees ? encArm.getRaw() / RobotMap.cpd : encArm.getRaw();
 	}
 
 	public boolean liftLimitHigh() {

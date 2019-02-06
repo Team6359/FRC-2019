@@ -40,10 +40,10 @@ public class SS_Wrist extends PIDSubsystem {
 
 
     protected double returnPIDInput() {
-        return Robot.sensors.wristEncoder(false);
+        return 1 - Math.cos(Math.toRadians(Robot.sensors.wristEncoder(false, true) + Robot.sensors.armEncoder(false, true)));
     }
 
     protected void usePIDOutput(double output) {
-        wristMotor.set(ControlMode.PercentOutput, output);
+      //  wristMotor.set(ControlMode.PercentOutput, output);
     }
 }

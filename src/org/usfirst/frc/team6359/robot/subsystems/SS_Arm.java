@@ -39,12 +39,12 @@ public class SS_Arm extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return Robot.sensors.armEncoder(false);
+        return 1 - Math.cos(Math.toRadians(Robot.sensors.armEncoder(false, true)));
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	armMotor.set(ControlMode.PercentOutput, output);
+    //	armMotor.set(ControlMode.PercentOutput, output);
     }
 }

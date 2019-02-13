@@ -35,19 +35,19 @@ public class RobotMap {
 	public static final int lift3 = 5;
 	public static final int intake = 0;
 	public static final int wrist = -1;
-	public static final int arm = -1;
+	public static final int arm = 4;
 	
 	public static final int liftEncoder1 = 1;
 	public static final int liftEncoder2 = 0;
-	public static final int armEncoder1 = -1;
-	public static final int armEncoder2 = -1;
-	public static final int wristEncoder1 = -1;
-	public static final int wristEncoder2 = -1;
+	public static final int armEncoder1 = 2;
+	public static final int armEncoder2 = 3;
+	public static final int wristEncoder1 = 4;
+	public static final int wristEncoder2 = 5;
 	
 	public static final int solenoidIntake1 = -1;
 	public static final int solenoidIntake2 = -1;
-	public static final int solenoidBrake1 = -1;
-	public static final int solenoidBrake2 = -1;
+	public static final int solenoidBrake1 = 4;
+	public static final int solenoidBrake2 = 5;
 	
 	
 	
@@ -55,9 +55,9 @@ public class RobotMap {
 	//Intake Positions [liftHeight, thetaArm, thetaWrist] x is inches from lift, y is inches from ground
 	
 	public static double[] setPointHatchFloor = {0, 0, 0};
-	public static double[] setPointHatchCommonLow = {0, 0, 0};
-	public static double[] setPointHatchRocketMid = {0, 0, 0};
-	public static double[] setPointHatchRocketHigh = {0, 0, 0};
+	public static double[] setPointHatchCommonLow = {303, -984, 0};
+	public static double[] setPointHatchRocketMid = {1430, -984, 0};
+	public static double[] setPointHatchRocketHigh = {2500, -897, -128};
 	public static double[] setPointCargoFloor = {0, 0, 0};
 	public static double[] setPointCargoCorral = {0, 0, 0};
 	public static double[] setPointCargoRocketLow = {0, 0, 0};
@@ -65,6 +65,6 @@ public class RobotMap {
 	public static double[] setPointCargoRocketHigh = {0, 0, 0};
 	
 	//counts per degree
-	public static double cpd = -1;
+	public static double cpd = 1000 / 90;
 	
 }

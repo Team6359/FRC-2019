@@ -16,16 +16,15 @@ public class MoveController extends Command {
 
 		requires(Robot.driveTrain);
 	}
-	
+
 	protected void initialize() {
 		System.out.println("MoveController");
 
 	}
 
-
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
+
 		@SuppressWarnings("unused")
 		boolean up, down, a, b, x, y, lB, rB, back, start, lClick, rClick, l3, lB2, rB2;
 		@SuppressWarnings("unused")
@@ -37,7 +36,6 @@ public class MoveController extends Command {
 		double lY2, rY2;
 
 		boolean a2, b2, x2, y2;
-		
 
 		lX = OI.controller1.getRawAxis(0);
 		lY = OI.controller1.getRawAxis(1);
@@ -48,7 +46,6 @@ public class MoveController extends Command {
 
 		lY2 = OI.controller2.getRawAxis(1);
 		rY2 = OI.controller2.getRawAxis(5);
-		
 
 		a = OI.controller1.getRawButton(1);
 		b = OI.controller1.getRawButton(2);
@@ -62,7 +59,7 @@ public class MoveController extends Command {
 		rClick = OI.controller1.getRawButton(10);
 		DPad = OI.controller1.getPOV();
 		DPad2 = OI.controller2.getPOV();
-		
+
 		up = OI.controller1.getRawButton(10);
 		down = OI.controller1.getRawButton(9);
 
@@ -77,60 +74,58 @@ public class MoveController extends Command {
 		lB2 = OI.controller2.getRawButton(5);
 		rB2 = OI.controller2.getRawButton(6);
 
-
 		start2 = OI.controller2.getRawButton(8);
 
-
-		
-
 		Robot.driveTrain.ControllerDrive(lX, lY, rX, rY, DPad2);
-		if (rClick){
+		if (rClick) {
 			Robot.driveTrain.setSlowMode(true);
 		}
 
-		if (lClick){
+		if (lClick) {
 			Robot.driveTrain.setSlowMode(false);
 		}
-		
-		Robot.robotController.update(a,  b,  DPad,  rB,  lB,  back, y, start, start2);
 
-		Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0] + 10 * (rT - lT), 
-		     Robot.mathHandler.getCurrentPosition()[1], Robot.mathHandler.getCurrentPosition()[2] + (Math.abs(rY2) > 0.2 ? (rY2 * 6) : 0));
+		Robot.robotController.update(a, b, DPad, rB, lB, back, y, start, start2);
+
+		Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0] + 10 * (rT - lT),
+				Robot.mathHandler.getCurrentPosition()[1],
+				Robot.mathHandler.getCurrentPosition()[2] + (Math.abs(rY2) > 0.2 ? (rY2 * 6) : 0));
 
 		Robot.lift.triggerAggregate(rT - lT);
-		
+
 		Robot.wrist.sendBypass(rY2);
 		Robot.arm.delayBypass(lY2, x2, rB2, lB2, y2);
 
-		if (a2){
+		if (a2) {
 			Robot.wrist.setSetpoint(0);
 			Robot.wrist.customSetpoint(0);
-			Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0], Robot.mathHandler.getCurrentPosition()[2], 0);
+			Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0],
+					Robot.mathHandler.getCurrentPosition()[2], 0);
 			Robot.sensors.wristEncoder(true, false);
 		}
 
-		if (b2){
+		if (b2) {
 			Robot.arm.setSetpoint(0);
 			Robot.arm.customSetpoint(0);
-			Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0], 0, Robot.mathHandler.getCurrentPosition()[2]);
+			Robot.mathHandler.setCurrentPosition(Robot.mathHandler.getCurrentPosition()[0], 0,
+					Robot.mathHandler.getCurrentPosition()[2]);
 			Robot.sensors.armEncoder(true, false);
 		}
 
-
-		if (start){
+		if (start) {
 			Robot.lift.getPIDController().reset();
 		} else {
 			Robot.lift.enable();
 		}
-		
+
 		Robot.lift.enable();
 		Robot.mathHandler.update();
 		Robot.intake.update();
 		Robot.lift.update();
 		Robot.lift.sendX(x);
 
-		//Robot.lift.lift(0);
-		
+		// Robot.lift.lift(0);
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

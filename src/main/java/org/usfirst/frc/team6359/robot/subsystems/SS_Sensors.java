@@ -24,13 +24,14 @@ public class SS_Sensors extends Subsystem {
 	AnalogInput vacSensor;
 
 	public SS_Sensors() {
-		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
+		encLift = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
 		encArm = new Encoder(RobotMap.armEncoder1, RobotMap.armEncoder2, false, Encoder.EncodingType.k4X);
 		encWrist = new Encoder(RobotMap.wristEncoder1, RobotMap.wristEncoder2, false, Encoder.EncodingType.k4X);
-	//	limitSwitchHigh = new DigitalInput(2);
-		 limitLow = new DigitalInput(RobotMap.laserDist);
-		 vacSensor = new AnalogInput(RobotMap.vacSensor);
+		// limitSwitchHigh = new DigitalInput(2);
+		limitLow = new DigitalInput(RobotMap.laserDist);
+		vacSensor = new AnalogInput(RobotMap.vacSensor);
 	}
+
 	public double liftEncoder(boolean reset) {
 		if (reset) {
 			encLift.reset();
@@ -38,20 +39,20 @@ public class SS_Sensors extends Subsystem {
 		SmartDashboard.putNumber("Lift Encoder", encLift.getRaw());
 		return encLift.getRaw();
 	}
-	
+
 	public double wristEncoder(boolean reset, boolean degrees) {
 		if (reset) {
 			encWrist.reset();
 		}
-		//SmartDashboard.putNumber("Wrist Encoder", encWrist.getRaw());
+		// SmartDashboard.putNumber("Wrist Encoder", encWrist.getRaw());
 		return degrees ? encWrist.getRaw() / RobotMap.cpd : encWrist.getRaw();
 	}
-	
+
 	public double armEncoder(boolean reset, boolean degrees) {
 		if (reset) {
 			encArm.reset();
 		}
-		//SmartDashboard.putNumber("Arm Encoder", encArm.getRaw());
+		// SmartDashboard.putNumber("Arm Encoder", encArm.getRaw());
 		return degrees ? encArm.getRaw() / RobotMap.cpd : encArm.getRaw();
 	}
 
@@ -59,7 +60,7 @@ public class SS_Sensors extends Subsystem {
 		SmartDashboard.putBoolean("Limit Switch High", !limitSwitchHigh.get());
 		return !limitSwitchHigh.get();
 	}
-	
+
 	public boolean liftLimitLow() {
 		SmartDashboard.putBoolean("Limit Switch Low", limitLow.get());
 		return limitLow.get();
@@ -72,10 +73,10 @@ public class SS_Sensors extends Subsystem {
 		return gyro.getAngle();
 	}
 
-	public double vacSensor(){
+	public double vacSensor() {
 		return vacSensor.getVoltage();
 	}
-	
+
 	public void initDefaultCommand() {
 
 	}

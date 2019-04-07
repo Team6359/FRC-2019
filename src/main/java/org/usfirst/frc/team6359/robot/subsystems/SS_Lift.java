@@ -24,15 +24,12 @@ public class SS_Lift extends PIDSubsystem {
 	double triggerTolerance = 0.5;
 
 	double cpi = 819 / 20;
-	
-	public static Solenoid brake1, brake2;
 
+	public static Solenoid brake1, brake2;
 
 	public int liftPos = 0; // Start in drive position
 	private static float kP1 = 0.0048f, kI1 = 0f, kD1 = 0.0f;
 	private static float kP2 = 0.0048f, kI2 = 0f, kD2 = 0f;
-
-
 
 	public SS_Lift() {
 
@@ -43,11 +40,11 @@ public class SS_Lift extends PIDSubsystem {
 
 		setSetpoint(0);
 		enable();
-		
-		lift1 = new Victor(RobotMap.lift1); //down
-		lift2 = new Victor(RobotMap.lift2); //up
-		lift3 = new Victor(RobotMap.lift3); //up
-		
+
+		lift1 = new Victor(RobotMap.lift1); // down
+		lift2 = new Victor(RobotMap.lift2); // up
+		lift3 = new Victor(RobotMap.lift3); // up
+
 		brake1 = new Solenoid(RobotMap.solenoidBrake1);
 		brake2 = new Solenoid(RobotMap.solenoidBrake2);
 
@@ -55,15 +52,15 @@ public class SS_Lift extends PIDSubsystem {
 	}
 
 	public void initDefaultCommand() {
-		
+
 	}
-	
+
 	double newSetpoint = 0;
 
 	public void lift(double speed) {
-		
+
 		encVal = Robot.sensors.liftEncoder(false);
-		if (encVal > getSetpoint()){
+		if (encVal > getSetpoint()) {
 			lift1.set(0);
 			lift2.set(0);
 			lift3.set(0);
@@ -73,32 +70,33 @@ public class SS_Lift extends PIDSubsystem {
 			lift3.set(speed);
 		}
 
-		if (1 - Math.cos(Math.toRadians(Robot.sensors.armEncoder(false, true))) < 0.2){
+		if (1 - Math.cos(Math.toRadians(Robot.sensors.armEncoder(false, true))) < 0.2) {
 			setSetpoint(newSetpoint);
 		}
 
-		if (getSetpoint() > 1272){
+		if (getSetpoint() > 1272) {
 			getPIDController().setPID(kP2, kI2, kD2);
 		}
 
 	}
-//1272
+
+	// 1272
 	public void resetEnc() {
 		Robot.sensors.liftEncoder(true);
 	}
 
-	public void setLiftBrake(boolean brake){
+	public void setLiftBrake(boolean brake) {
 		brake1.set(!brake);
 		brake2.set(brake);
 		SmartDashboard.putBoolean("Brake", brake);
 	}
 
-	public void setSetpoint2(double setPoint){
+	public void setSetpoint2(double setPoint) {
 		newSetpoint = setPoint;
 	}
 
-	public void update(){
-		if(Math.abs(Robot.sensors.liftEncoder(false) - getSetpoint()) < tolerance) {
+	public void update() {
+		if (Math.abs(Robot.sensors.liftEncoder(false) - getSetpoint()) < tolerance) {
 			setLiftBrake(true);
 		} else {
 			setLiftBrake(false);
@@ -109,11 +107,11 @@ public class SS_Lift extends PIDSubsystem {
 
 	protected double returnPIDInput() {
 		encVal = Robot.sensors.liftEncoder(false);
-		 
+
 		return encVal;
 	}
 
 	protected void usePIDOutput(double output) {
-	//	lift(output * -1);
+		// lift(output * -1);
 	}
 }

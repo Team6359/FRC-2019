@@ -4,6 +4,7 @@ import org.usfirst.frc.team6359.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,15 +18,18 @@ public class SS_Sensors extends Subsystem {
 	Encoder encArm;
 	Encoder encWrist;
 	DigitalInput limitSwitchHigh;
-	DigitalInput limitSwitchLow;
+	DigitalInput limitLow;
 	public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
+	AnalogInput vacSensor;
 
 	public SS_Sensors() {
 		encLift  = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2, false, Encoder.EncodingType.k4X);
 		encArm = new Encoder(RobotMap.armEncoder1, RobotMap.armEncoder2, false, Encoder.EncodingType.k4X);
 		encWrist = new Encoder(RobotMap.wristEncoder1, RobotMap.wristEncoder2, false, Encoder.EncodingType.k4X);
 	//	limitSwitchHigh = new DigitalInput(2);
-	//	limitSwitchLow = new DigitalInput(3);
+		 limitLow = new DigitalInput(RobotMap.laserDist);
+		 vacSensor = new AnalogInput(RobotMap.vacSensor);
 	}
 	public double liftEncoder(boolean reset) {
 		if (reset) {
@@ -57,14 +61,19 @@ public class SS_Sensors extends Subsystem {
 	}
 	
 	public boolean liftLimitLow() {
-		SmartDashboard.putBoolean("Limit Switch Low", !limitSwitchLow.get());
-		return !limitSwitchLow.get();
+		SmartDashboard.putBoolean("Limit Switch Low", limitLow.get());
+		return limitLow.get();
 	}
+
 	public double gyro(boolean reset) {
 		if (reset) {
 			gyro.reset();
 		}
 		return gyro.getAngle();
+	}
+
+	public double vacSensor(){
+		return vacSensor.getVoltage();
 	}
 	
 	public void initDefaultCommand() {

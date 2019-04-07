@@ -9,51 +9,47 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SS_Intake extends Subsystem {
 
-    private boolean pneumatic = false;
     private boolean vacRunning = false;
-	private Solenoid solenoid1, solenoid2;
-    private SpeedController belts, vacuum;
+    private SpeedController belts, vacuum, vacuum2;
+
+    private double releaseTime = -1000;
+    
+    private Solenoid vacSolenoid1, vacSolenoid2;
 
     public SS_Intake() {
-    	solenoid1 = new Solenoid(RobotMap.solenoidIntake1);
-    	solenoid2 = new Solenoid(RobotMap.solenoidIntake2);
-
         belts = new Victor(RobotMap.intake);
         vacuum = new Victor(RobotMap.vacuum);
+        vacuum2 = new Victor(RobotMap.vacuum2);
+
+
+        vacSolenoid1 = new Solenoid(RobotMap.solenoidVac1);
+        vacSolenoid2 = new Solenoid(RobotMap.solenoidVac2);
     }
-    
-    public void update() {
-    	solenoid1.set(pneumatic);
-        solenoid2.set(!pneumatic);
-        
-        vacuum.set(vacRunning ? 0.7 : 0.0);
+
+
+  
+    public void update() {    
+        vacuum.set(vacRunning ? 0.5 : 0.0);
+        vacuum2.set(vacRunning ? 0.5 : 0.0);
+        if (System.currentTimeMillis() - releaseTime >= 0.25){
+            vacSolenoid1.set(true);
+            vacSolenoid2.set(false);
+        }
     }
-    
+   
     public void runIntake(double speed) {
     	belts.set(speed);
-    }
-	
-    public boolean getClamp() {
-    	return pneumatic;
-    }
-    
-    public void setClamp(boolean clamp) {
-    	pneumatic = clamp;
-    }
-    
-    public void extendPneumatic() {
-    	pneumatic = true;
-    }
-    
-    public void retractPneumatic() {
-    	pneumatic = false;
     }
 
     public void setVac(boolean on){
         vacRunning = on;
+        if (!on){
+            vacSolenoid1.set(false);
+            vacSolenoid2.set(true);
+            releaseTime = System.currentTimeMillis();
+        }
     }
 
     public void initDefaultCommand() {
     }
 }
-

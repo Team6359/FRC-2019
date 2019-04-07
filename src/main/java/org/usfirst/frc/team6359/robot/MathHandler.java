@@ -4,6 +4,8 @@ import org.usfirst.frc.team6359.robot.subsystems.SS_Arm;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Lift;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Wrist;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class MathHandler {
 	
 	private SS_Lift lift;
@@ -12,16 +14,17 @@ public class MathHandler {
 	
 	private double[] currentPosition = {0, 0, 0};
 	
-	public MathHandler(SS_Lift lift, SS_Arm arm, SS_Wrist wrist) {
-		this.lift = lift;
-		this.arm = arm;
-		this.wrist = wrist;
+	public MathHandler(double lift, double arm, double wrist){
+		currentPosition[0] = lift;
+		currentPosition[1] = arm;
+		currentPosition[2] = wrist;
 	}
 	
 	public void update() {
-		lift.setSetpoint(currentPosition[0]);
-		arm.setSetpoint(currentPosition[1]);
-		wrist.setSetpoint(currentPosition[2]);
+		SmartDashboard.putNumber("CurPos", currentPosition[0]);
+		Robot.lift.setSetpoint2(currentPosition[0]);
+		Robot.arm.customSetpoint(currentPosition[1]);
+		Robot.wrist.customSetpoint(currentPosition[2]);
 	}
 	
 

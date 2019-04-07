@@ -17,7 +17,7 @@ public class SS_Lift extends PIDSubsystem {
 
 	Preferences prefs;
 
-	double tolerance = 1; // 1/4 in tolerance
+	double tolerance = 20; // 1/4 in tolerance
 
 	boolean manual = false;
 
@@ -41,9 +41,8 @@ public class SS_Lift extends PIDSubsystem {
 		encVal = Robot.sensors.liftEncoder(true);
 		setOutputRange(-1, 1);
 
-		//setSetpoint(0);
-		enable();
 		setSetpoint(0);
+		enable();
 		
 		lift1 = new Victor(RobotMap.lift1); //down
 		lift2 = new Victor(RobotMap.lift2); //up
@@ -52,19 +51,17 @@ public class SS_Lift extends PIDSubsystem {
 		brake1 = new Solenoid(RobotMap.solenoidBrake1);
 		brake2 = new Solenoid(RobotMap.solenoidBrake2);
 
-		setAbsoluteTolerance(1);
+		setAbsoluteTolerance(20);
 	}
 
 	public void initDefaultCommand() {
 		
 	}
 	
+	double newSetpoint = 0;
+
 	public void lift(double speed) {
-		if(Math.abs(getPosition() - getSetpoint()) < tolerance) {
-			setLiftBrake(true);
-		} else {
-			setLiftBrake(false);
-		}
+		
 		encVal = Robot.sensors.liftEncoder(false);
 		if (encVal > getSetpoint()){
 			lift1.set(0);
@@ -74,6 +71,10 @@ public class SS_Lift extends PIDSubsystem {
 			lift1.set(speed * -1);
 			lift2.set(speed);
 			lift3.set(speed);
+		}
+
+		if (1 - Math.cos(Math.toRadians(Robot.sensors.armEncoder(false, true))) < 0.2){
+			setSetpoint(newSetpoint);
 		}
 
 		if (getSetpoint() > 1272){
@@ -89,15 +90,30 @@ public class SS_Lift extends PIDSubsystem {
 	public void setLiftBrake(boolean brake){
 		brake1.set(!brake);
 		brake2.set(brake);
+		SmartDashboard.putBoolean("Brake", brake);
 	}
 
+	public void setSetpoint2(double setPoint){
+		newSetpoint = setPoint;
+	}
+
+	public void update(){
+		if(Math.abs(Robot.sensors.liftEncoder(false) - getSetpoint()) < tolerance) {
+			setLiftBrake(true);
+		} else {
+			setLiftBrake(false);
+		}
+
+		SmartDashboard.putNumber("Lift Setpoint", getSetpoint());
+	}
 
 	protected double returnPIDInput() {
 		encVal = Robot.sensors.liftEncoder(false);
+		 
 		return encVal;
 	}
 
 	protected void usePIDOutput(double output) {
-		lift(output * -1);
+	//	lift(output * -1);
 	}
 }

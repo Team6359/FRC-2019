@@ -10,10 +10,11 @@ package org.usfirst.frc.team6359.robot;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Arm;
 import org.usfirst.frc.team6359.robot.subsystems.SS_DriveTrain;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Intake;
-import org.usfirst.frc.team6359.robot.subsystems.SS_Lift;
+import org.usfirst.frc.team6359.robot.subsystems.SS_MainLift;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Sensors;
 import org.usfirst.frc.team6359.robot.subsystems.SS_Wrist;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,10 +31,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static SS_DriveTrain driveTrain;
 	public static SS_Sensors sensors;
-	public static SS_Lift lift;
+	public static SS_MainLift lift;
 	public static SS_Arm arm;
 	public static SS_Wrist wrist;
 	public static SS_Intake intake;
+
+	public static boolean debuggingVac = false;
+	public static boolean debugVacState = false;
 	
 	public static RobotController robotController;
 	public static MathHandler mathHandler;
@@ -49,16 +53,22 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		mathHandler = new MathHandler(0, 0, 0);
 		m_oi = new OI();
 		driveTrain = new SS_DriveTrain();
 		sensors = new SS_Sensors();
-		lift = new SS_Lift();
+		lift = new SS_MainLift();
 		arm = new SS_Arm();
 		wrist = new SS_Wrist();
 		intake = new SS_Intake();
 		robotController = new RobotController();
-		mathHandler = new MathHandler(lift, arm, wrist);
+
+		lift.getPIDController().reset();
 		
+		lift.getPIDController().enable();
+		CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().startAutomaticCapture();
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
